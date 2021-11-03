@@ -1,0 +1,504 @@
+#include<GL/glut.h>
+#include<math.h>
+#include<iostream>
+#include<stdio.h>
+#include<stdlib.h>
+
+
+
+
+
+
+using namespace std;
+float xr = 0, yr = 0;     //to control the object s movement 
+
+void specialkey(int key, int x, int y) {
+	switch (key) {
+	case GLUT_KEY_UP:
+		yr = yr + 3;
+		cout << y << endl;
+		glutPostRedisplay();
+		break;																	//key board controlling function
+	
+	case GLUT_KEY_DOWN:
+		yr=yr-3;
+		cout << y << endl;
+		glutPostRedisplay();
+		break;
+	case GLUT_KEY_LEFT:
+		xr=xr-3;
+		cout << x << endl;
+		glutPostRedisplay();
+		break;
+
+	case GLUT_KEY_RIGHT:
+		xr=xr+3;
+		cout << y << endl;
+		glutPostRedisplay();
+		break;
+
+			
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+void init()
+{
+	glClearColor(0, 1.0, 0,1.0);		//set display color to white
+	glMatrixMode(GL_PROJECTION);
+	gluOrtho2D(0, 1000, 0, 1000);			//set projection parameters
+}
+
+
+void kssembusservice()
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	glBegin(GL_POLYGON);
+	glColor3f(0.3, 0.3, 0.3);			//road
+	glVertex2i(0, 200);
+	glVertex2i(0, 350);
+	glVertex2i(1000, 350);
+	glVertex2i(1000, 200);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glColor3f(1, 0.4, 0.4);			//base
+	glVertex2f(35, 450);
+	glVertex2f(35, 470);
+	glVertex2f(45, 510);
+	glVertex2f(205, 510);
+	glVertex2f(205, 490);
+	glVertex2f(195, 450);
+	glEnd();
+
+
+	glBegin(GL_POLYGON);
+	glColor3f(0.0, 0.9, 0.9);			//left pole
+	glVertex2f(50, 480);
+	glVertex2f(50, 700);
+	glVertex2f(60, 700);
+	glVertex2f(60, 490);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glColor3f(0, 0.9, 0.9);			//right pole
+	glVertex2f(185, 480);
+	glVertex2f(185, 700);
+	glVertex2f(195, 700);
+	glVertex2f(195, 490);
+	glEnd();
+
+
+	glBegin(GL_POLYGON);
+	glColor3f(1, 0.4, 0.4);			//roof
+	glVertex2f(30, 670);
+	glVertex2f(30, 700);
+	glVertex2f(60, 750);
+	glVertex2f(220, 750);
+	glVertex2f(220, 710);
+	glVertex2f(200, 670);
+	glEnd();
+
+	
+
+	glBegin(GL_POLYGON);
+	glColor3f(0.8, 0.8, 0.8);			//bus stop glass wall
+	glVertex2f(60, 560);
+	glVertex2f(60, 640);
+	glVertex2f(185, 640);
+	glVertex2f(185, 560);
+	glEnd();
+
+
+
+	glBegin(GL_POLYGON);
+	glColor3f(0.2, 0.2, 0.2);			//bench
+	glVertex2f(72, 519);
+	glVertex2f(85, 545);
+	glVertex2f(178, 545);
+	glVertex2f(169, 519);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glColor3f(0.2, 0.2, 0.2);			//bench left leg
+	glVertex2f(82, 490);
+	glVertex2f(82, 530);
+	glVertex2f(86, 530);
+	glVertex2f(86, 500);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glColor3f(0.2, 0.2, 0.2);			//bench right leg
+	glVertex2f(160, 490);
+	glVertex2f(160, 530);
+	glVertex2f(164, 530);
+	glVertex2f(164, 500);
+	glEnd();
+
+
+	//person 1
+
+	glBegin(GL_POLYGON);
+	glColor3f(1, 0.8, 0.7);
+	for (int i = 0; i < 360; i++)										//right ear
+	{
+		float theta = i * 3.14159 / 180;
+		glVertex2f(121.5 + 2 * cos(theta), 602 + 4 * sin(theta));
+	}
+	glEnd();
+
+
+	glBegin(GL_POLYGON);
+	glColor3f(1, 0.8, 0.7);
+	for (int i = 0; i < 360; i++)										//left ear
+	{
+		float theta = i * 3.14159 / 180;
+		glVertex2f(98.5 + 2 * cos(theta), 602 + 4 * sin(theta));
+	}
+	glEnd();
+
+
+	glBegin(GL_POLYGON);
+	glColor3f(1, 0.8, 0.7);
+	for (int i = 0; i < 360; i++)										//person face	
+	{
+		float theta = i * 3.14159 / 180;
+		glVertex2f(110 + 12 * cos(theta), 600 + 20 * sin(theta));
+	}
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glColor3f(0, 0, 0);
+	for (int i = 30; i < 150; i++)										//person hair	
+	{
+		float theta = i * 3.14159 / 180;
+		glVertex2f(110 + 12 * cos(theta), 600 + 19 * sin(theta));
+	}
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor3f(0, 0, 0);
+	glVertex2i(102, 602);						//left eye brow
+	glVertex2i(107, 602);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor3f(0, 0, 0);							//right eye brow 
+	glVertex2i(113.9, 602);
+	glVertex2f(118.5, 602);
+	glEnd();
+
+
+	glBegin(GL_POLYGON);
+	glColor3f(0, 0, 0);
+	for (int i = 0; i < 360; i++)										//left eye	
+	{
+		float theta = i * 3.14159 / 180;
+		glVertex2f(104.5 + 1.5 * cos(theta), 596 + 1.5 * sin(theta));
+	}
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glColor3f(0, 0, 0);
+	for (int i = 0; i < 360; i++)										//right eye	
+	{
+		float theta = i * 3.14159 / 180;
+		glVertex2f(115.5 + 1.5 * cos(theta), 596 + 1.5 * sin(theta));
+	}
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor3f(0.5, 0.3, 0.2);													//nose
+	glVertex2f(110, 596);
+	glVertex2f(110, 588);
+	glEnd();
+
+
+	glBegin(GL_POLYGON);
+	glColor3f(0.8, 0.5, 0.2);
+	for (int i = 180; i < 360; i++)										//mouth
+	{
+		float theta = i * 3.14159 / 180;
+		glVertex2f(110 + 4 * cos(theta), 586 + 4 * sin(theta));
+	}
+	glEnd();
+
+
+
+
+
+	glColor3f(1, 0.8, 0.7);
+	glRectf(105.5, 576, 114.5, 582);								//neck
+
+
+
+	glBegin(GL_POLYGON);
+	{
+		glColor3f(0.9, 0.7, 1);		//shirt
+		glVertex2f(99, 530);
+		glVertex2f(99, 576);
+		glVertex2f(121, 576);
+		glVertex2f(121, 530);
+	}
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	{
+		glColor3f(0.9, 0.7, 1);		//left sleeve
+		glVertex2f(93, 550);
+		glVertex2f(88, 560);
+		glVertex2f(99, 576);
+		glVertex2f(99, 557);
+
+	}
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	{
+		glColor3f(1, 0.8, 0.7);		//left shoulder
+
+		glVertex2f(86, 544);
+		glVertex2f(84, 549);
+		glVertex2f(89, 560);
+		glVertex2f(93, 555);
+
+	}
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	{
+		glColor3f(1, 0.8, 0.7);		//right shoulder
+
+		glVertex2f(133, 548);
+		glVertex2f(117, 560);
+		glVertex2f(129, 562);
+		glVertex2f(136, 548);
+
+	}
+	glEnd();
+
+
+	glBegin(GL_POLYGON);
+	{
+		glColor3f(0.9, 0.7, 1);		// right sleeve
+		glVertex2f(125.5, 551);
+		glVertex2f(114, 560);
+		glVertex2f(120, 577);
+		glVertex2f(130.5, 562);
+
+	}
+	glEnd();
+
+
+
+
+
+	glBegin(GL_POLYGON);
+	{
+		glColor3f(1, 0.8, 0.7);		//left arm
+
+		glVertex2f(99, 540);
+		glVertex2f(82, 544);
+		glVertex2f(88, 550);
+		glVertex2f(99, 545);
+
+	}
+	glEnd();
+
+
+
+
+
+
+	glBegin(GL_POLYGON);
+	{
+		glColor3f(1, 0.8, 0.7);		//right arm
+
+		glVertex2f(121, 540);
+		glVertex2f(121, 546);
+		glVertex2f(132, 554);
+		glVertex2f(135, 548);
+	}
+	glEnd();
+
+
+	glBegin(GL_POLYGON);
+	{
+		glColor3f(1, 0, 0);		//left leg
+
+		glVertex2f(99, 490);
+		glVertex2f(99, 534);
+		glVertex2f(110, 534);
+		glVertex2f(107, 490);
+	}
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	{
+		glColor3f(1, 0, 0);		//right leg
+
+		glVertex2f(112, 490);
+		glVertex2f(108, 534);
+		glVertex2f(121, 534);
+		glVertex2f(120, 490);
+	}
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	{
+		glColor3f(1, 1, 0);		//right shoe
+
+		glVertex2f(112, 480);
+		glVertex2f(112, 490);
+		glVertex2f(120, 490);
+		glVertex2f(123, 480);
+	}
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	{
+		glColor3f(1, 1, 0);		//left shoe
+
+		glVertex2f(95, 480);
+		glVertex2f(99, 490);
+		glVertex2f(107, 490);
+		glVertex2f(107, 480);
+	}
+	glEnd();
+
+	//bus
+
+	glBegin(GL_POLYGON);			//bus body
+	glColor3f(1, .7, 0);
+	glVertex2f(-310 + xr, 280 + yr);
+	glVertex2f(-310 + xr, 520 + yr);
+	glVertex2f(-290 + xr, 550 + yr);
+	glVertex2f(-30 + xr, 550 + yr);
+	glVertex2f(-0 + xr,540 + yr);
+	glVertex2f(-0 + xr, 330 + yr);
+	glVertex2f(-30+ xr, 280 + yr);
+	glEnd();
+
+
+	glBegin(GL_POLYGON);			//side glass
+	glColor3f(0.7, 0.7, 1);
+	glVertex2f(-310 + xr, 400+yr);
+	glVertex2f(-310 + xr, 490 + yr);
+	glVertex2f(-30+ xr, 490 + yr); 
+	glVertex2f(-30 + xr, 400 + yr);
+
+	glEnd();
+
+
+	glBegin(GL_POLYGON);
+	{
+		glColor3f(0.5, 0.7, 1);											//front glass
+		glVertex2f(-30+xr, 400 + yr);
+		glVertex2f(-30 + xr, 490 + yr);
+		glVertex2f(0 + xr, 530 + yr);
+		glVertex2f(0 + xr, 450 + yr);
+	}
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glVertex2f(-70+ xr, 280+yr);
+	glColor3f(0, 0, 0);
+	for (int i = 180; i < 360; i++)										//front quater tire				
+	{
+		float theta = i * 3.14159 / 180;
+		glVertex2f(-70+ xr + 18 * cos(theta), 280+yr + 25 * sin(theta));
+	}
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glVertex2f(-230 + xr, 280 + yr);
+	glColor3f(0, 0, 0);
+	for (int i = 180; i < 360; i++)										//back quater tire				
+	{
+		float theta = i * 3.14159 / 180;
+		glVertex2f(-230 + xr + 18 * cos(theta), 280 + yr + 25 * sin(theta));
+	}
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glColor3f(0, 0, 0);
+	for (int i = 0; i < 360; i++)										//back tire
+	{
+		float theta = i * 3.14159 / 180;
+		glVertex2f(-240 + xr + 20 * cos(theta), 280 + yr + 32 * sin(theta));
+	}
+	glEnd();
+
+
+	glBegin(GL_POLYGON);
+	glColor3f(0, 0, 0);
+	for (int i = 0; i < 360; i++)										//front tire				
+	{
+		float theta = i * 3.14159 / 180;
+		glVertex2f(-80+ xr + 20 * cos(theta), 280 + yr + 32 * sin(theta));
+	}
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glColor3f(0.5, 0.5, 0.5);
+	for (int i = 0; i < 360; i++)										//front  magweel				
+	{
+		float theta = i * 3.14159 / 180;
+		glVertex2f(-80+ xr + 12 * cos(theta), 280 + yr + 19 * sin(theta));
+	}
+	glEnd();
+
+	glBegin(GL_POLYGON);
+	glColor3f(0.5, 0.5, 0.5);
+	for (int i = 0; i < 360; i++)										//back  magweel				
+	{
+		float theta = i * 3.14159 / 180;
+		glVertex2f(-240+ xr + 12 * cos(theta), 280 + yr + 19 * sin(theta));
+	}
+	glEnd();
+
+
+
+	glFlush();
+}
+
+
+
+
+void main(int argc, char** argv)
+{
+	printf("use  right arrow key to forward\n");
+	printf("use  left arrow key to move backward\n");
+	printf("use top arrow key to fly\n");
+
+
+	
+
+
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB|GLUT_DEPTH);
+	glutInitWindowSize(1555, 792);
+	glutInitWindowPosition(0, 0);
+	glutCreateWindow("kssem bus service");
+	
+	init();
+	glutDisplayFunc(kssembusservice);
+	glutSpecialFunc(specialkey);   //key board function 
+
+	glutMainLoop();
+
+
+
+		
+}
